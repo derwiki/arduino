@@ -1,6 +1,7 @@
 void setup() {
   DDRB = DDRB | B11111111; // set 8,9,10,11,12,13 to output
   DDRD = DDRD | B10000000; // set 7 to output
+  Serial.begin(9600);
 }
 
 const unsigned int BOTTOMRIGHT = B10000000; // PORTD
@@ -80,8 +81,9 @@ void show_digits(unsigned int num) {
 
 unsigned int x;
 void loop() {
-  for (x = 0; x < 100; x++) {
+  for (x = 1; x < 50; x += 1) {
+    Serial.println(x);
     show_digits(x);
-    delay(80);
+    delay(500);
   }
 }
