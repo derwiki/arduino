@@ -18,8 +18,8 @@ void show_digit(unsigned int num) {
       PORTD = BOTTOMRIGHT;
       break;
     case 1:
-      PORTB = TOPRIGHT;
-      PORTD = BOTTOMRIGHT;
+      PORTB = TOPLEFT | BOTTOMLEFT;
+      PORTD = 0;
       break;
     case 2:
       PORTB = TOP | TOPRIGHT | MIDDLE | BOTTOMLEFT | BOTTOM;
