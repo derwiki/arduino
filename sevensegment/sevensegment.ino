@@ -56,11 +56,32 @@ void show_digit(unsigned int num) {
   }
 }
 
-unsigned int i;
+void blank() {
+  PORTD = 0;
+  PORTB = 0;
+}
+
+void show_digits(int num) {
+  if (num < 10) {
+    show_digit(num);
+    delay(200);
+  } else if (num < 100) {
+    show_digit(num / 10);
+    delay(200);
+    if (num / 10 == num % 10) {
+      blank();
+      delay(50);
+    }
+    show_digit(num % 10);
+    delay(200);
+  }
+  blank();
+}
+
+int x;
 void loop() {
-  show_digit(0);
-  for (i = 0; i  < 10; i++) {
-    show_digit(i);
-    delay(100);
+  for (x = 9; x < 100; x++) {
+    show_digits(x);
+    delay(800);
   }
 }
