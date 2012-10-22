@@ -3,13 +3,13 @@ void setup() {
   DDRD = DDRD | B10000000; // set 7 to output
 }
 
-const int BOTTOMRIGHT = B10000000; // PORTD
-const int TOPRIGHT    = B00000001; // PORTB
-const int TOP         = B00000010;
-const int BOTTOM      = B00000100;
-const int BOTTOMLEFT  = B00001000;
-const int MIDDLE      = B00010000;
-const int TOPLEFT     = B00100000;
+const unsigned int BOTTOMRIGHT = B10000000; // PORTD
+const unsigned int TOPRIGHT    = B00000001; // PORTB
+const unsigned int TOP         = B00000010;
+const unsigned int BOTTOM      = B00000100;
+const unsigned int BOTTOMLEFT  = B00001000;
+const unsigned int MIDDLE      = B00010000;
+const unsigned int TOPLEFT     = B00100000;
 
 void show_digit(unsigned int num) {
   switch (num) {
@@ -61,7 +61,7 @@ void blank() {
   PORTB = 0;
 }
 
-void show_digits(int num) {
+void show_digits(unsigned int num) {
   if (num < 10) {
     show_digit(num);
     delay(200);
@@ -78,10 +78,10 @@ void show_digits(int num) {
   blank();
 }
 
-int x;
+unsigned int x;
 void loop() {
-  for (x = 9; x < 100; x++) {
+  for (x = 0; x < 100; x++) {
     show_digits(x);
-    delay(800);
+    delay(80);
   }
 }
