@@ -10,13 +10,7 @@
 
 #include "rgb.h"
 
-void setup() {
-  pinMode(REDPIN, OUTPUT);
-  pinMode(GREENPIN, OUTPUT);
-  pinMode(BLUEPIN, OUTPUT);
-  Serial.begin(9600);
-}
-
+const RGB black = { 0 , 0 , 0 };
 const RGB red = { 255 , 0 , 0 };
 const RGB orange = { 255 , 127 , 0 };
 const RGB yellow = { 255 , 255 , 0 };
@@ -26,8 +20,21 @@ const RGB indigo = { 111 , 0, 255 };
 const RGB violet =  { 143 , 0 , 255 };
 const RGB rainbow[7] = {red, orange, yellow, green, blue, indigo, violet};
 
+void setup() {
+  pinMode(REDPIN, OUTPUT);
+  pinMode(GREENPIN, OUTPUT);
+  pinMode(BLUEPIN, OUTPUT);
+  Serial.begin(9600);
+  set_color(black);
+}
+
 void loop() {
-  for (unsigned int i = 0; i < 6; i++) {
-    fade_from_to(rainbow[i], rainbow[i+1]);
-  }
+  Serial.println("yellow to green");
+  fade_from_to(yellow, green);
+  Serial.println("green to blue");
+  fade_from_to(green, blue);
+  Serial.println("blue to green");
+  fade_from_to(blue, green);
+  Serial.println("green to yellow");
+  fade_from_to(green, yellow);
 }

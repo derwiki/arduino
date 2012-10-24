@@ -31,26 +31,37 @@ unsigned int color_to_pin(unsigned int color) {
   else if (color == 2) { return BLUEPIN; }
 }
 
+
+unsigned int i, val, amount;
 int range;
-byte color;
-short i;
-byte pin;
-int val;
+byte color, pin;
 void fade_from_to(RGB from, RGB to) {
   for (i = 0; i < 256; i++) {
-    for (color = 0; color < RGB_CHANNELS ; color++) {
+    for (color = 0; color < 3 ; color++) {
       pin = color_to_pin(color);
+      //Serial.print("to.rgb: "); Serial.println(to.rgb[color]);
+      //Serial.print("from.rgb: "); Serial.println(from.rgb[color]);
       if (to.rgb[color] == from.rgb[color]) {
         if (i == 0) { analogWrite(pin, from.rgb[color]); }
       } else {
         // scale the transition
         range = to.rgb[color] - from.rgb[color];
-        val = i * 255 / range;
-        if (val < 0) { val += 255; }
+        //Serial.print("range: "); Serial.println(range);
+        // pain in the ass types
+        amount = (int)((float)i * (range > 0 ? ((float)range / 255) : ((float)range / -255)));
+        if (range < 0) { val = from.rgb[color] - (amount); }
+        else { val = amount; }
+        //if (val < 0) { Serial.print("val: "); Serial.println(val); val = 255 + val * -255; Serial.print("Adusted val: "); Serial.println(val); }
         analogWrite(pin, val);
-        Serial.print(pin); Serial.print(" , "); Serial.println(val);
+        //Serial.print(pin); Serial.print(" , "); Serial.println(val);
       }
     }
-    delay(255 / range * FADESPEED);
+    delay(FADESPEED);
   }
+}
+
+void set_color(RGB color) {
+  analogWrite(REDPIN, color.s.r);
+  analogWrite(GREENPIN, color.s.g);
+  analogWrite(BLUEPIN, color.s.b);
 }
