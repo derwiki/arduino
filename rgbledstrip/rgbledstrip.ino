@@ -18,7 +18,9 @@ void setup() {
 }
 
 void loop() {
-  RGB from = { 0 , 0 , 0 };
-  RGB to = { 255 , 0 , 0 };
-  fade_from_to(from, to);
+  RGB red = { 0 , 0 , 127 };
+  RGB yellow = { 255, 255, 0 };
+  RGB to = { 255 , 0 , 255 };
+  fade_from_to(red, yellow);
+  fade_from_to(yellow, red);
 }

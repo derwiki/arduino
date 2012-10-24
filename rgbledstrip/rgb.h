@@ -15,19 +15,42 @@
 
 union RGB {
   struct {
-    byte r;
-    byte g;
-    byte b;
+    unsigned short r;
+    unsigned short g;
+    unsigned short b;
   } s;
 
-  byte rgb[3];
+  unsigned short rgb[3];
 };
 
+int range;
+byte color;
+short i;
+byte pin;
+short ratio;
+int val;
 void fade_from_to(RGB from, RGB to) {
-  for (byte i = 0; i < 256; i++) {
-    byte range = to.s.r - from.s.r;
-    unsigned int ratio = range >> 7;
-    analogWrite(REDPIN, i / ratio);
+  for (i = 0; i < 256; i++) {
+    for (color = 2; color < 3; color++) {
+      range = to.rgb[color] - from.rgb[color];
+      if (color == 0) { pin = REDPIN; }
+      else if (color == 1) { pin = GREENPIN; }
+      else if (color == 2) { pin = BLUEPIN; }
+
+      if (range == 0) {
+        if (i > 0) {
+          analogWrite(pin, to.rgb[color]);
+        }
+      } else {
+		  ratio = 255 / range;
+		  val = i * ratio;
+		  if (val < 0) { val = 255 + val; }
+		  analogWrite(pin, val);
+		  Serial.print(i); Serial.print(" , setting to ");
+		  Serial.print(val); Serial.print(" , pin ");
+		  Serial.println(pin);
+      }
+    }
     delay(FADESPEED);
   }
 }
