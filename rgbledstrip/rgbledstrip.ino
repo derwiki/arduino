@@ -17,10 +17,17 @@ void setup() {
   Serial.begin(9600);
 }
 
+const RGB red = { 255 , 0 , 0 };
+const RGB orange = { 255 , 127 , 0 };
+const RGB yellow = { 255 , 255 , 0 };
+const RGB green = { 0, 255 , 0 };
+const RGB blue = { 0, 0, 255 };
+const RGB indigo = { 111 , 0, 255 };
+const RGB violet =  { 143 , 0 , 255 };
+const RGB rainbow[7] = {red, orange, yellow, green, blue, indigo, violet};
+
 void loop() {
-  RGB red = { 0 , 0 , 127 };
-  RGB yellow = { 255, 255, 0 };
-  RGB to = { 255 , 0 , 255 };
-  fade_from_to(red, yellow);
-  fade_from_to(yellow, red);
+  for (unsigned int i = 0; i < 6; i++) {
+    fade_from_to(rainbow[i], rainbow[i+1]);
+  }
 }
