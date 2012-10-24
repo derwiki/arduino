@@ -82,7 +82,7 @@ void show_digits(unsigned int num) {
 
 unsigned int x;
 void loop() {
-  for (x = 1; x < 50; x += 1) {
+  for (x = 1; x < 100; x += 1) {
     Serial.println(x);
     show_digits(x);
     delay(500);
