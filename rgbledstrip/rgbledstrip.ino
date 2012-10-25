@@ -1,7 +1,3 @@
-// color swirl! connect an RGB LED to the PWM pins as indicated
-// in the #defines
-// public domain, enjoy!
- 
 #define REDPIN 5
 #define GREENPIN 6
 #define BLUEPIN 3
@@ -16,25 +12,22 @@ const RGB orange = { 255 , 127 , 0 };
 const RGB yellow = { 255 , 255 , 0 };
 const RGB green = { 0, 255 , 0 };
 const RGB blue = { 0, 0, 255 };
-const RGB indigo = { 111 , 0, 255 };
-const RGB violet =  { 143 , 0 , 255 };
-const RGB rainbow[7] = {red, orange, yellow, green, blue, indigo, violet};
+const RGB cyan = { 0 , 255 , 255 };
+const RGB magenta = { 255 , 0 , 255 };
+const RGB white = { 255 , 255, 255 };
+const RGB binary[8] = { black, red, yellow, green, cyan, blue, magenta, white };
 
 void setup() {
   pinMode(REDPIN, OUTPUT);
   pinMode(GREENPIN, OUTPUT);
   pinMode(BLUEPIN, OUTPUT);
-  Serial.begin(9600);
-  set_color(black);
 }
 
 void loop() {
-  Serial.println("yellow to green");
-  fade_from_to(yellow, green);
-  Serial.println("green to blue");
-  fade_from_to(green, blue);
-  Serial.println("blue to green");
-  fade_from_to(blue, green);
-  Serial.println("green to yellow");
-  fade_from_to(green, yellow);
+  for (unsigned int i = 0; i < 7; i++) {
+    fade_from_to(binary[i], binary[i+1]);
+  }
+  for (unsigned int i = 7; i > 0; i--) {
+    fade_from_to(binary[i], binary[i-1]);
+  }
 }
